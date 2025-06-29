@@ -2,6 +2,7 @@ package application;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class Program {
 
@@ -14,8 +15,30 @@ public class Program {
 		try {
 			fileReader = new FileReader(path);
 			bufferReader = new BufferedReader(fileReader);
-		} catch (Exception e) {
-			// TODO: handle exception
+			
+			//bufferReader = new BufferedReader(new FileReader(path));
+			
+			String line = bufferReader.readLine();
+			
+			while(line != null) {
+				System.out.println(line);
+				line = bufferReader.readLine();
+			}
+		} catch (IOException e) {
+			System.out.println("Erro: " + e.getMessage());
+		}
+		finally {
+			try {
+				if(bufferReader != null) {
+					bufferReader.close();
+				}
+				if(fileReader != null) {
+					fileReader.close();
+				}
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
